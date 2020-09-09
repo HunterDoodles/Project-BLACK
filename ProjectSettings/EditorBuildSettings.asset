@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Prison_Passage_Dev.unity
+    guid: d5e04803684d4944fb82d91d578cc6cc
   m_configObjects: {}
