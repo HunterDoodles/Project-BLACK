@@ -19,8 +19,6 @@ namespace BLACK.Core
         private float cameraDownThresh = 10f;
         void Update()
         {
-
-
             // Get the X Axis Rotation
             carRotationX = playerCar.transform.eulerAngles.x;
             //print(carRotationX); //Debug check for X rotation
