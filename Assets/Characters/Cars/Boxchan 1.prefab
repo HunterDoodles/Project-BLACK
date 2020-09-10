@@ -876,6 +876,8 @@ MonoBehaviour:
   playerCar: {fileID: 4775542099123735678}
   playerCamera: {fileID: 4775542098382123114}
   carRotationX: 0
+  cameraUpThresh: 10
+  cameraDownThresh: 10
 --- !u!1 &4775542098762182348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,10 +1036,12 @@ MonoBehaviour:
   wheelBL: {fileID: 6262761603037021095}
   wheelFL: {fileID: 7630833997795546875}
   wheelFR: {fileID: 1616115243359973116}
-  suspensionForce: 35000
+  suspensionForce: 25000
   springDistance: 1
+  groundDistance: 3
   accel: 100000
   turn: 250000
+  stiffness: 0.8
 --- !u!54 &4775542099123735652
 Rigidbody:
   m_ObjectHideFlags: 0
