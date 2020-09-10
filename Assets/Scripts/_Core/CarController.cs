@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BLACK.Core
 {
-    public class CarControllerFINAL : MonoBehaviour
+    public class CarController : MonoBehaviour
     {
         /*If this shit doesnt end up working I will commit mine <3 -shawn
         */
