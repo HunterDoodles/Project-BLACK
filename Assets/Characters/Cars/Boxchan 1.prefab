@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1096922379377882467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4241494463807093857}
+  m_Layer: 0
+  m_Name: MissilePortTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4241494463807093857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096922379377882467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0232, y: 0.02678, z: 0.01334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2264316604180144644}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1434103476071316356
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +151,7 @@ Transform:
   - {fileID: 2729751217499951797}
   - {fileID: 4133983371704132942}
   - {fileID: 3100645973412494515}
+  - {fileID: 4241494463807093857}
   m_Father: {fileID: 4775542099123735651}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -902,7 +933,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775542098762182348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 0.5}
+  m_LocalPosition: {x: -0.5, y: -0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775542099123735651}
@@ -923,6 +954,7 @@ GameObject:
   - component: {fileID: 4775542099123735679}
   - component: {fileID: 4775542099123735652}
   - component: {fileID: 1582534106204645988}
+  - component: {fileID: 3154622617056599067}
   m_Layer: 0
   m_Name: Boxchan 1
   m_TagString: Untagged
@@ -1036,12 +1068,14 @@ MonoBehaviour:
   wheelBL: {fileID: 6262761603037021095}
   wheelFL: {fileID: 7630833997795546875}
   wheelFR: {fileID: 1616115243359973116}
-  suspensionForce: 25000
-  springDistance: 1
-  groundDistance: 3
+  suspensionForce: 35000
+  springDistance: 1.2
+  groundDistance: 1.5
   accel: 100000
   turn: 250000
-  stiffness: 0.8
+  stiffness: 0.9
+  sidedrag: 0.8
+  wheelOffset: 0.4
 --- !u!54 &4775542099123735652
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1074,6 +1108,21 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &3154622617056599067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775542099123735678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a69d424a3a605546ac07b75039f7561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunorigin: {fileID: 4241494463807093857}
+  boolet: {fileID: 4475788942883576784, guid: 3998354679533fd4ba52bb92ac5c16a9, type: 3}
+  spray: 20
 --- !u!1 &4775542099136157808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775542099136157808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: -0.5}
+  m_LocalPosition: {x: -0.5, y: -0.3, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775542099123735651}
@@ -1128,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775542099249319120}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: 0.5}
+  m_LocalPosition: {x: 0.5, y: -0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775542099123735651}
@@ -1158,7 +1207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775542099597523369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: -0.5}
+  m_LocalPosition: {x: 0.5, y: -0.3, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775542099123735651}

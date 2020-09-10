@@ -25,7 +25,11 @@ namespace BLACK.Core
         [SerializeField]
         private float turn = 300;//Turn Torque
         [SerializeField]
-        private float stiffness = 0.8f;//Turn Torque
+        private float stiffness = 0.9f;//decay of vertical momentum while grounded.
+        [SerializeField]
+        private float sidedrag = 0.8f;//Decay of sideways momentum while grounded
+        [SerializeField]
+        private float wheelOffset = .4f; //effects the offset of the wheel inrelation to the springs
         private Rigidbody _rb;//heh he said Rigid
         #endregion
 
@@ -51,31 +55,31 @@ namespace BLACK.Core
             if (Physics.Raycast(_rb.position,-_rb.transform.up,out ground,groundDistance))
             {
                 Vector3 vel = transform.InverseTransformDirection(_rb.velocity); //Convert the rigidbodie's world velocity into a local space
-                vel = new Vector3(vel.x * .8f,vel.y,vel.z); //Decay the local sideways velocity
+                vel = new Vector3(vel.x * sidedrag,vel.y * stiffness,vel.z); //Decay the local sideways velocity
                 _rb.velocity = transform.TransformDirection(vel); //Convert and update local velocity to the world
                 // _rb.AddRelativeForce(ground.transform.forward * accel * inputY);
                 _rb.AddRelativeForce(Vector3.forward * accel * inputY);//Move the car
                 if (inputY > 0)
                 {
 
-                    _rb.AddForceAtPosition((-springFL.up * suspensionForce / 4) * inputY,springFL.position);
-                    _rb.AddForceAtPosition((-springFR.up * suspensionForce / 4) * inputY,springFR.position);
+                    _rb.AddForceAtPosition((-springFL.up * suspensionForce / 6) * inputY,springFL.position);
+                    _rb.AddForceAtPosition((-springFR.up * suspensionForce / 6) * inputY,springFR.position);
                 }
                 if (inputY < 0)
                 {
-                    _rb.AddForceAtPosition((-springBL.up * suspensionForce / 4) * -inputY,springBL.position);
-                    _rb.AddForceAtPosition((-springBR.up * suspensionForce / 4) * -inputY,springBR.position);
+                    _rb.AddForceAtPosition((-springBL.up * suspensionForce / 6) * -inputY,springBL.position);
+                    _rb.AddForceAtPosition((-springBR.up * suspensionForce / 6) * -inputY,springBR.position);
                 }
                 if (inputX > 0)
                 {
-                    _rb.AddForceAtPosition((-springBR.up * suspensionForce / 4) * inputX,springBR.position);
+                    _rb.AddForceAtPosition((-springBR.up * suspensionForce / 8) * inputX,springBR.position);
                  
-                    _rb.AddForceAtPosition((-springFR.up * suspensionForce / 4) * inputX,springFR.position);
+                    _rb.AddForceAtPosition((-springFR.up * suspensionForce / 8) * inputX,springFR.position);
                 }
                 if (inputX < 0)
                 {
-                    _rb.AddForceAtPosition((-springFL.up * suspensionForce / 4) * -inputX,springFL.position);
-                    _rb.AddForceAtPosition((-springBL.up * suspensionForce / 4) * -inputX,springBL.position);
+                    _rb.AddForceAtPosition((-springFL.up * suspensionForce / 8) * -inputX,springFL.position);
+                    _rb.AddForceAtPosition((-springBL.up * suspensionForce / 8) * -inputX,springBL.position);
                     
                 }
                 //_rb.AddRelativeTorque(Vector3.right * 10000f * inputY);
@@ -95,39 +99,39 @@ namespace BLACK.Core
                  * Added force at the position of the spring based on how compressed the spring is
                  * (suspensionForce * (1 - bl.distance / springDistance)) this line is probably jank math
                 */
-                _rb.AddForceAtPosition(springBL.up * ((suspensionForce * ((float) Math.Exp(springDistance  -bl.distance / springDistance) / 2))),springBL.position);
-                wheelBL.localPosition = new Vector3(wheelBL.localPosition.x,-(bl.distance - .25f),wheelBL.localPosition.z); //Makes the wheel match the spring position
+                _rb.AddForceAtPosition(springBL.up * (suspensionForce *( springDistance  -bl.distance / springDistance) ),springBL.position);
+                wheelBL.localPosition = new Vector3(wheelBL.localPosition.x,-(bl.distance - wheelOffset),wheelBL.localPosition.z); //Makes the wheel match the spring position
             }
             else
             {
-                wheelBL.localPosition = new Vector3(wheelBL.localPosition.x,-(springDistance - .25f),wheelBL.localPosition.z);
+                wheelBL.localPosition = new Vector3(wheelBL.localPosition.x,-(springDistance - wheelOffset),wheelBL.localPosition.z);
             }
             if (Physics.Raycast(springBR.position, -springBR.up, out br, springDistance))
             {
-                _rb.AddForceAtPosition(springBR.up * ((suspensionForce * ((float) Math.Exp(springDistance  -br.distance / springDistance) / 2))), springBR.position);
-                wheelBR.localPosition = new Vector3(wheelBR.localPosition.x, -(br.distance - .25f), wheelBR.localPosition.z);
+                _rb.AddForceAtPosition(springBR.up * (suspensionForce * (springDistance - br.distance / springDistance)), springBR.position);
+                wheelBR.localPosition = new Vector3(wheelBR.localPosition.x, -(br.distance - wheelOffset), wheelBR.localPosition.z);
             }
             else
             {
-                wheelBR.localPosition = new Vector3(wheelBR.localPosition.x,-(springDistance - .25f),wheelBR.localPosition.z);
+                wheelBR.localPosition = new Vector3(wheelBR.localPosition.x,-(springDistance - wheelOffset),wheelBR.localPosition.z);
             }
             if (Physics.Raycast(springFL.position, -springFL.up, out fl, springDistance))
             {
-                _rb.AddForceAtPosition(springFL.up * ((suspensionForce * ((float) Math.Exp(springDistance -fl.distance / springDistance) / 2))), springFL.position);
-                wheelFL.localPosition = new Vector3(wheelFL.localPosition.x, -(fl.distance-.25f ), wheelFL.localPosition.z);
+                _rb.AddForceAtPosition(springFL.up * (suspensionForce * (springDistance - fl.distance / springDistance)), springFL.position);
+                wheelFL.localPosition = new Vector3(wheelFL.localPosition.x, -(fl.distance- wheelOffset), wheelFL.localPosition.z);
             }
             else
             {
-                wheelFL.localPosition = new Vector3(wheelFL.localPosition.x,-(springDistance - .25f),wheelFL.localPosition.z);
+                wheelFL.localPosition = new Vector3(wheelFL.localPosition.x,-(springDistance - wheelOffset),wheelFL.localPosition.z);
             }
             if (Physics.Raycast(springFR.position, -springFR.up, out fr, springDistance))
             {
-                _rb.AddForceAtPosition(springFR.up * ((suspensionForce * ((float)Math.Exp(springDistance - fr.distance / springDistance)/2))), springFR.position);
-                wheelFR.localPosition = new Vector3(wheelFR.localPosition.x, -(fr.distance - .25f), wheelFR.localPosition.z);
+                _rb.AddForceAtPosition(springFR.up * (suspensionForce * (springDistance - fr.distance / springDistance)), springFR.position);
+                wheelFR.localPosition = new Vector3(wheelFR.localPosition.x, -(fr.distance - wheelOffset), wheelFR.localPosition.z);
             }
             else
             {
-                wheelFR.localPosition = new Vector3(wheelFR.localPosition.x,-(springDistance - .25f),wheelFR.localPosition.z);
+                wheelFR.localPosition = new Vector3(wheelFR.localPosition.x,-(springDistance - wheelOffset),wheelFR.localPosition.z);
             }
         }
     }
