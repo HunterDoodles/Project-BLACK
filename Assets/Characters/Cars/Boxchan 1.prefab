@@ -1068,13 +1068,14 @@ MonoBehaviour:
   wheelBL: {fileID: 6262761603037021095}
   wheelFL: {fileID: 7630833997795546875}
   wheelFR: {fileID: 1616115243359973116}
-  suspensionForce: 35000
+  suspensionForce: 30000
   springDistance: 1.2
   groundDistance: 1.5
   accel: 100000
   turn: 250000
   stiffness: 0.9
   sidedrag: 0.8
+  frontdrag: 0.98
   wheelOffset: 0.4
 --- !u!54 &4775542099123735652
 Rigidbody:
@@ -1085,7 +1086,7 @@ Rigidbody:
   m_GameObject: {fileID: 4775542099123735678}
   serializedVersion: 2
   m_Mass: 1500
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0

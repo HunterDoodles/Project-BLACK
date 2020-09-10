@@ -27,7 +27,11 @@ namespace BLACK.Core
         [SerializeField]
         private float stiffness = 0.9f;//decay of vertical momentum while grounded.
         [SerializeField]
-        private float sidedrag = 0.8f;//Decay of sideways momentum while grounded
+        private float sideDrag = 0.8f;//Decay of sideways momentum while grounded
+        [SerializeField]
+        private float frontDrag = 0.98f;//decay of vertical momentum while grounded.
+        [SerializeField]
+        private float frontStopDrag = 0.95f;
         [SerializeField]
         private float wheelOffset = .4f; //effects the offset of the wheel inrelation to the springs
         private Rigidbody _rb;//heh he said Rigid
@@ -52,10 +56,12 @@ namespace BLACK.Core
 
             //Check to see if the car is more or less touching the ground
             RaycastHit ground;
+            Debug.DrawRay(_rb.position,-_rb.transform.up);
             if (Physics.Raycast(_rb.position,-_rb.transform.up,out ground,groundDistance))
             {
+                print(ground.distance);
                 Vector3 vel = transform.InverseTransformDirection(_rb.velocity); //Convert the rigidbodie's world velocity into a local space
-                vel = new Vector3(vel.x * sidedrag,vel.y * stiffness,vel.z); //Decay the local sideways velocity
+                vel = new Vector3(vel.x * sideDrag,vel.y * stiffness,vel.z * (inputY!=0?frontDrag:frontStopDrag)); //Decay the local sideways velocity
                 _rb.velocity = transform.TransformDirection(vel); //Convert and update local velocity to the world
                 // _rb.AddRelativeForce(ground.transform.forward * accel * inputY);
                 _rb.AddRelativeForce(Vector3.forward * accel * inputY);//Move the car
