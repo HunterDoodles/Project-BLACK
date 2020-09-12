@@ -69,7 +69,7 @@ namespace BLACK.Core
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            _rb.centerOfMass = new Vector3(0,-1f,0); //TODO: Make this relate to the centerofmass object. Currently is wonky when I try which is weird.
+            _rb.centerOfMass = new Vector3(0,1f,0); //TODO: Make this relate to the centerofmass object. Currently is wonky when I try which is weird.
         }
 
         // Update is called once per frame

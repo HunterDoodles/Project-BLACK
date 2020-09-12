@@ -1060,14 +1060,8 @@ GameObject:
   - component: {fileID: 5849998517391282741}
   - component: {fileID: 5849998517391282740}
   - component: {fileID: 5849998517391282743}
-<<<<<<< HEAD
-<<<<<<< Updated upstream
   - component: {fileID: 2764741322120839666}
-=======
   - component: {fileID: 1446909135}
->>>>>>> Stashed changes
-=======
->>>>>>> parent of 0a66b6f... Added not working Car Flipping script
   m_Layer: 2
   m_Name: JunkRatImproved
   m_TagString: Untagged
@@ -1161,14 +1155,9 @@ MonoBehaviour:
   thrustSpringFactor: 6
   turnSpringFactor: 8
   centerOfMass: {fileID: 5849998517652793617}
-<<<<<<< HEAD
-<<<<<<< Updated upstream
---- !u!114 &2764741322120839666
-=======
   Front: {fileID: 1369706904334714641}
   Back: {fileID: 1369706903860505769}
 --- !u!114 &1446909135
->>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1177,14 +1166,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5849998517391282742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: 038b9cd46212d784baba3bb00807c9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 5849998517391282740}
   flippingForce: 1000
   flippingTime: 2.5
-=======
   m_Script: {fileID: 11500000, guid: 2a69d424a3a605546ac07b75039f7561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1192,9 +1179,6 @@ MonoBehaviour:
   projectile: {fileID: 2118507814414009514, guid: 872b2f13cdc9b36428575094499ad8f9, type: 3}
   spray: 0
   _firedelay: 100
->>>>>>> Stashed changes
-=======
->>>>>>> parent of 0a66b6f... Added not working Car Flipping script
 --- !u!1 &5849998517599946946
 GameObject:
   m_ObjectHideFlags: 0
