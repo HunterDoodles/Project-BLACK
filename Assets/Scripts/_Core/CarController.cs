@@ -57,8 +57,13 @@ namespace BLACK.Core
         private float turnSpringFactor = 8f;
         [SerializeField]
         private Transform centerOfMass;
+        [SerializeField]
+        private Transform Front, Back;
 
+        private RaycastHit _springBR, _springBL, _springFR, _springFL;
+        private Vector3 _groundVector;
         private Rigidbody _rb;//penis joke
+        private bool _grounded = false;
         #endregion
 
         void Start()
@@ -73,7 +78,14 @@ namespace BLACK.Core
             _Suspension();
             _Thrust();//( ͡° ͜ʖ ͡°)
         }
-
+        public Vector3 getGroundForward()
+        {
+            return _groundVector;
+        }
+        public bool isGrounded()
+        {
+            return _grounded;
+        }
         private void _Thrust()
         {
             float inputY = Input.GetAxis("Vertical");//TODO: Find a better way to wrap inputs, I fucking hate unity's default system
@@ -81,20 +93,30 @@ namespace BLACK.Core
             bool boosting = Input.GetKey("left shift");
 
             //Check to see if the car is more or less touching the ground
-            RaycastHit ground;
-            Debug.DrawRay(_rb.position,-_rb.transform.up);
-            if (Physics.Raycast(_rb.position,-_rb.transform.up,out ground,groundDistance))
+            RaycastHit ground,ground2;
+            Debug.DrawRay(Front.position,-Front.transform.up);
+            Debug.DrawRay(Back.position,-Back.transform.up);
+            if (Physics.Raycast(Front.position,-Front.transform.up,out ground,groundDistance)&& Physics.Raycast(Back.position,-Back.transform.up,out ground2,groundDistance))
             {
+                _grounded = true;
+                
+                //here we are basically looking at the line made by the ground at the front of the car and the back of it to get the angle of the ground.
+                if (Physics.Raycast(_rb.position -_rb.transform.forward*.02f,-_rb.transform.up,out ground2,groundDistance))
+                {
+                    _groundVector = ground.point - ground2.point;
+                    _groundVector.Normalize();
+                }
 
                 _VelocityDecay(sideDrag,stiffness,(inputY != 0 ? frontDrag : frontStopDrag));
 
-                _rb.AddRelativeForce(Vector3.forward * accelForce * inputY * (boosting ? 1.5f : 1));//Apply forward thrust to the car, increase that by 50% if you are boosting that value subject to change.
+                _rb.AddForce(_groundVector * accelForce * inputY * (boosting ? 1.5f : 1));//Apply forward thrust to the car, increase that by 50% if you are boosting that value subject to change. force is applied parallel to the ground.
 
                 _AnimateMovement(inputX,inputY,boosting);//Do the silly car leaning thing
 
             }
             else
             {
+                _grounded = false;
                 _FallClamp();
             }
             _rb.AddRelativeTorque(Vector3.up * turningTorque * inputX);//Spin the Car
@@ -125,16 +147,16 @@ namespace BLACK.Core
             }
             if (inputy < 0)
             {
-                _SpringPush(springsandwheels.springBL,springsandwheels.springBR,thrustSpringFactor,inputy * (boosting ? 2 : 1));//Push back springs
+                _SpringPush(springsandwheels.springBL,springsandwheels.springBR,thrustSpringFactor,-inputy * (boosting ? 2 : 1));//Push back springs
             }
             if (inputx > 0)
             {
-                _SpringPush(springsandwheels.springBR,springsandwheels.springFR,turnSpringFactor,inputy);//push right springs
+                _SpringPush(springsandwheels.springBR,springsandwheels.springFR,turnSpringFactor,inputx);//push right springs
 
             }
             if (inputx < 0)
             {
-                _SpringPush(springsandwheels.springBL,springsandwheels.springFL,turnSpringFactor,inputy);//push... you guessed it left springs
+                _SpringPush(springsandwheels.springBL,springsandwheels.springFL,turnSpringFactor,-inputx);//push... you guessed it left springs
             }
 
         }
@@ -152,18 +174,19 @@ namespace BLACK.Core
         private void _Suspension()
         {
             //Applies the suspention force to all of the springs!
-            _SpringForce(springsandwheels.springBL,springsandwheels.wheelBL);
-            _SpringForce(springsandwheels.springBR,springsandwheels.wheelBR);
-            _SpringForce(springsandwheels.springFL,springsandwheels.wheelFL);
-            _SpringForce(springsandwheels.springFR,springsandwheels.wheelFR);
+            _SpringForce(springsandwheels.springBL,springsandwheels.wheelBL,out _springBL);
+            _SpringForce(springsandwheels.springBR,springsandwheels.wheelBR,out _springBR);
+            _SpringForce(springsandwheels.springFL,springsandwheels.wheelFL,out _springFL);
+            _SpringForce(springsandwheels.springFR,springsandwheels.wheelFR,out _springFR);
         }
 
-        private void _SpringForce(Transform spring,Transform wheel)
+        private void _SpringForce(Transform spring,Transform wheel,out RaycastHit springcast)
         {
-            RaycastHit springcast;
+
             //Check if the spring is contacting the ground
             if (Physics.Raycast(spring.position,-spring.up,out springcast,springDistance))
             {
+                Debug.DrawRay(spring.position,-spring.transform.up,Color.green);
                 /*
                  * Added force at the position of the spring based on how compressed the spring is
                  * (suspensionForce * (1 - bl.distance / springDistance)) this line is probably jank math
@@ -173,6 +196,7 @@ namespace BLACK.Core
             }
             else
             {
+                Debug.DrawRay(spring.position,-spring.transform.up,Color.red);
                 wheel.localPosition = new Vector3(wheel.localPosition.x,-(springDistance - wheelOffset),wheel.localPosition.z);// if the spring doesn't connect assume the wheel is a full... uh spring
             }
         }
