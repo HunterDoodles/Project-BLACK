@@ -11,6 +11,7 @@ namespace BLACK.Combat
         [SerializeField]
         private float impact = 10000f; //force imparted on collision
         private GameObject _parent;
+        public Target target;
         void Start()
         {
             // GetComponent<Rigidbody>().detectCollisions = false;

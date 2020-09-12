@@ -28,11 +28,12 @@ namespace BLACK.Combat
         [SerializeField]
         private float soundVolume = 1f;
         private AudioSource audioSource;
-
+        private AcquireTargets AcTarg;
         private float _timesincefired;
         private BLACK.Core.CarController _control;
         void Start()
         {
+            AcTarg = GetComponent<AcquireTargets>();
             audioSource = GetComponent<AudioSource>();
             _control = gameObject.GetComponent<BLACK.Core.CarController>();
             _timesincefired = _firedelay; //this is to ensure the player can fire immediately switching to the weapon
@@ -50,8 +51,9 @@ namespace BLACK.Combat
                 Random.InitState((int) (Time.frameCount * 100)); 
                 //if grounded get the angle of the ground to determine the missile angle, if not just take it from the car
                 Quaternion Rot = _control.isGrounded() ? Quaternion.LookRotation(_control.getGroundForward(),Vector3.up)*Quaternion.Euler(Random.Range(-spray,spray),Random.Range(-spray,spray),Random.Range(-spray,spray)) : Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x + Random.Range(-spray,spray),transform.rotation.eulerAngles.y + Random.Range(-spray,spray),transform.rotation.eulerAngles.z + Random.Range(-spray,spray)));
-                GameObject child = Instantiate(projectile,gunorigin.position,Rot);
-                child.GetComponent<Dumbfire>().SetParent(gameObject);
+                Dumbfire child = Instantiate(projectile,gunorigin.position,Rot).GetComponent<Dumbfire>();
+                child.target = AcTarg.GetCurrentTarget();
+                child.SetParent(gameObject);
             }
         }
     }
