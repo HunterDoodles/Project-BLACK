@@ -8,6 +8,8 @@ public class AcquireTargets : MonoBehaviour
     private Target[] _potentialTargets;
     private Target _currentTarget;
     private float _currentTargetDistance;
+    [SerializeField]
+    private float maxDistance = 200f;
     void Start()
     {
         
@@ -31,43 +33,51 @@ public class AcquireTargets : MonoBehaviour
                 //print(angleY);
                 Debug.DrawRay(transform.position,Quaternion.Euler(0,25,0) * transform.forward * 10);
                 Debug.DrawRay(transform.position,Quaternion.Euler(0,-25,0) * transform.forward * 10);
-                if (angleY < 25)
+                if (dist < maxDistance)
                 {
 
-                    if (!Physics.Linecast(transform.position,target.transform.position))
+                    if (angleY < 25)
                     {
+
+                        //if (!Physics.Linecast(transform.position,target.transform.position))
+                        //{
                         Debug.DrawLine(transform.position,target.transform.position,Color.yellow);
                         if (_currentTarget != null)
                         {
 
                             if (dist < _currentTargetDistance)
                             {
-                             
+
                                 _currentTarget = target;
                                 _currentTargetDistance = dist;
                             }
                             else
                             {
-                                
+
                             }
                         }
                         else
                         {
-                           
+
                             _currentTarget = target;
                             _currentTargetDistance = dist;
                         }
+                        /*}
+                        else
+                        {
+
+                            Debug.DrawLine(transform.position,target.transform.position,Color.red);
+                        }*/
+
                     }
                     else
                     {
-
-                        Debug.DrawLine(transform.position,target.transform.position,Color.red);
+                        _currentTargetDistance = 0;
                     }
-
                 }
                 else
                 {
-                    _currentTargetDistance = 0;
+                    Debug.DrawLine(transform.position,target.transform.position,Color.red);
                 }
             }
         }

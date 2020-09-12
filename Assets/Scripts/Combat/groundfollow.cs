@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace BLACK.Combat
 {
-    [RequireComponent(typeof(Dumbfire))]
+    [RequireComponent(typeof(BLACK.Combat.Dumbfire))]
     public class groundfollow : MonoBehaviour
     {
         // Start is called before the first frame update
@@ -18,11 +18,13 @@ namespace BLACK.Combat
         [SerializeField]
         [Tooltip("How far from the ground the missile need to be before it stops trying to follow it")]
         private float heightThresh = 10f;
-
+        private BLACK.Combat.Dumbfire missileBase;
         private bool following = true;
         void Start()
         {
-
+            missileBase = GetComponent<Dumbfire>();
+            BLACK.Core.CarController car = missileBase.GetParent().GetComponent<BLACK.Core.CarController>();
+            following = car.isGrounded();
         }
 
         // Update is called once per frame

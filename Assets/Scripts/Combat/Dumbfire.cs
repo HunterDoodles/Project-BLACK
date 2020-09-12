@@ -12,6 +12,8 @@ namespace BLACK.Combat
         private float impact = 10000f; //force imparted on collision
         private GameObject _parent;
         public Target target;
+
+        public float aliveTime = 0;
         void Start()
         {
             // GetComponent<Rigidbody>().detectCollisions = false;
@@ -20,12 +22,17 @@ namespace BLACK.Combat
 
         void Update()
         {
+            aliveTime += Time.deltaTime;
             transform.position += transform.forward * speed*Time.deltaTime;
         }
         //https://www.youtube.com/watch?v=lLl0DVzRksk
         public void SetParent(GameObject parentalfigure)
         {
-            _parent = parentalfigure; 
+            _parent = parentalfigure;
+        }
+        public GameObject GetParent()
+        {
+            return _parent;
         }
         private void OnTriggerEnter(Collider other)
         {

@@ -67,6 +67,7 @@ MonoBehaviour:
   speed: 125
   impact: 250000
   target: {fileID: 0}
+  aliveTime: 0
 --- !u!114 &4954084292409991993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,14 +75,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357501405254115321}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d994183121071804db993bc7e0f75dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   height: 2
   correct: 0.5
-  anglecorrect: 0.5
+  anglecorrect: 0
   heightThresh: 10
 --- !u!82 &335449153260525250
 AudioSource:
@@ -200,6 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf585c6b832f3854790bba2344b4ba37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correctionSpeed: 50
+  heightMulti: 1.5
+  trackingDelay: 0.1
 --- !u!1 &1088737300878271398
 GameObject:
   m_ObjectHideFlags: 0
