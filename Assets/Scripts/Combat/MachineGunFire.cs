@@ -21,11 +21,19 @@ namespace BLACK.Combat
         [SerializeField]
         [Tooltip("This is a hack don't let me do this please")]//TODO stop committing crimes against code
         private string FireKey = "space";
+        [SerializeField]
+        private AudioClip Fire;
+        [SerializeField]
+        private float soundPitch = 1f;
+        [SerializeField]
+        private float soundVolume = 1f;
+        private AudioSource audioSource;
 
         private float _timesincefired;
         private BLACK.Core.CarController _control;
         void Start()
         {
+            audioSource = GetComponent<AudioSource>();
             _control = gameObject.GetComponent<BLACK.Core.CarController>();
             _timesincefired = _firedelay; //this is to ensure the player can fire immediately switching to the weapon
         }
@@ -36,6 +44,8 @@ namespace BLACK.Combat
             _timesincefired += Time.deltaTime * 1000; 
             if (Input.GetKey(FireKey)&&_timesincefired>=_firedelay)
             {
+                audioSource.pitch = soundPitch;
+                audioSource.PlayOneShot(Fire,soundVolume);
                 _timesincefired = 0; 
                 Random.InitState((int) (Time.frameCount * 100)); 
                 //if grounded get the angle of the ground to determine the missile angle, if not just take it from the car

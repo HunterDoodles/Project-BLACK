@@ -30,7 +30,7 @@ public class CarFlipping : MonoBehaviour
 
         //if car is at certain angle, set to isFlipped
         float zAngle = playerCar.transform.rotation.eulerAngles.z;
-        print(zAngle);
+       // print(zAngle);
         if (zAngle >= 80 && zAngle <= 280)
         {
             isFlipped = true;

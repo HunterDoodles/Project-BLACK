@@ -33,16 +33,18 @@ namespace BLACK.Core
         private float turningTorque = 250000;//Turn Torque
         [SerializeField]
         [Tooltip("How much local vertical velocity is kept per physics tick, used in reducing bounce on the springs. only works while grounded")]
-        private float stiffness = 0.9f;//decay of vertical momentum while grounded.
+        private float stiffness = 5f;//decay of vertical momentum while grounded.
         [SerializeField]
         [Tooltip("How much local side velocity is kept per physics tick, higher values = more drift. . only works while grounded")]
-        private float sideDrag = 0.8f;//Decay of sideways momentum while grounded
+        private float sideDrag = 5f;//Decay of sideways momentum while grounded
+        [SerializeField]
+        private float sideDragReduction= 2.5f;//Decay of sideways momentum while grounded
         [SerializeField]
         [Tooltip("How much local frontal velocity is kept per physics tick while accelerating, effects max speed. only works while grounded")]
-        private float frontDrag = 0.98f;//decay of vertical momentum while grounded.
+        private float frontDrag = 1f;//decay of vertical momentum while grounded.
         [SerializeField]
         [Tooltip("How much local frontal velocity is kept per physics tick while you are not accelerating. only works while grounded")]
-        private float frontStopDrag = 0.95f;
+        private float frontStopDrag = 2.5f;
         [SerializeField]
         [Tooltip("Caps the fall speed, test throughly if you mess with this, high speed break collision.")]
         private float maxFallSpeed = 35f;
@@ -90,16 +92,17 @@ namespace BLACK.Core
         {
             float inputY = Input.GetAxis("Vertical");//TODO: Find a better way to wrap inputs, I fucking hate unity's default system
             float inputX = Input.GetAxis("Horizontal");
-            bool boosting = Input.GetKey("left shift");
-
+            bool boosting = Input.GetKey("k");
+            bool fastturn = Input.GetKey("l");
             //Check to see if the car is more or less touching the ground
             RaycastHit ground,ground2;
             Debug.DrawRay(Front.position,-Front.transform.up);
             Debug.DrawRay(Back.position,-Back.transform.up);
+           
             if (Physics.Raycast(Front.position,-Front.transform.up,out ground,groundDistance)&& Physics.Raycast(Back.position,-Back.transform.up,out ground2,groundDistance))
             {
                 _grounded = true;
-                
+              
                 //here we are basically looking at the line made by the ground at the front of the car and the back of it to get the angle of the ground.
                 if (Physics.Raycast(_rb.position -_rb.transform.forward*.02f,-_rb.transform.up,out ground2,groundDistance))
                 {
@@ -107,10 +110,16 @@ namespace BLACK.Core
                     _groundVector.Normalize();
                 }
 
-                _VelocityDecay(sideDrag,stiffness,(inputY != 0 ? frontDrag : frontStopDrag));
-
+                //_VelocityDecay((1f-(sideDrag-(fastturn?sideDragReduction:0)))*Time.deltaTime,1f-stiffness * Time.deltaTime,1f-(inputY != 0 ? frontDrag * Time.deltaTime : frontStopDrag * Time.deltaTime));
+                _VelocityDecay(1f - (sideDrag-(fastturn?sideDragReduction:0) ) * Time.deltaTime,1f - stiffness * Time.deltaTime,1f - (inputY != 0 ? frontDrag * Time.deltaTime : frontStopDrag * Time.deltaTime));
                 _rb.AddForce(_groundVector * accelForce * inputY * (boosting ? 1.5f : 1));//Apply forward thrust to the car, increase that by 50% if you are boosting that value subject to change. force is applied parallel to the ground.
-
+                if (Input.GetKeyDown("f"))
+                {
+                    _rb.AddForce(transform.up * 2000000);
+                }
+                else
+                {
+                }
                 _AnimateMovement(inputX,inputY,boosting);//Do the silly car leaning thing
 
             }
@@ -119,7 +128,7 @@ namespace BLACK.Core
                 _grounded = false;
                 _FallClamp();
             }
-            _rb.AddRelativeTorque(Vector3.up * turningTorque * inputX);//Spin the Car
+            _rb.AddRelativeTorque(Vector3.up * turningTorque *(fastturn?1.5f:1) * inputX);//Spin the Car
         }
 
         private void _FallClamp()

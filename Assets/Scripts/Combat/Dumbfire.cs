@@ -7,7 +7,7 @@ namespace BLACK.Combat
     {
         // Start is called before the first frame update
         [SerializeField]
-        private float speed = 0.5f;
+        private float speed = 100f;
         [SerializeField]
         private float impact = 10000f; //force imparted on collision
         private GameObject _parent;
@@ -17,9 +17,9 @@ namespace BLACK.Combat
         }
 
 
-        void FixedUpdate()
+        void Update()
         {
-            transform.position += transform.forward * speed;
+            transform.position += transform.forward * speed*Time.deltaTime;
         }
         //https://www.youtube.com/watch?v=lLl0DVzRksk
         public void SetParent(GameObject parentalfigure)
