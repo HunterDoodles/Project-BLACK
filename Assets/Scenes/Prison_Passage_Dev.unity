@@ -921,7 +921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1446909135, guid: a4bc2725b9990304abac45294e685582, type: 3}
       propertyPath: flippingForce
-      value: 100000
+      value: 600000
       objectReference: {fileID: 0}
     - target: {fileID: 1446909135, guid: a4bc2725b9990304abac45294e685582, type: 3}
       propertyPath: playerCar

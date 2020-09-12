@@ -25,7 +25,7 @@ public class CarFlipping : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
 
         //if car is at certain angle, set to isFlipped
