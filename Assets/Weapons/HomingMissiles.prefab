@@ -84,6 +84,8 @@ MonoBehaviour:
   correct: 0.5
   anglecorrect: 0
   heightThresh: 10
+  delay: 0.1
+  duration: -1
 --- !u!82 &335449153260525250
 AudioSource:
   m_ObjectHideFlags: 0
@@ -201,9 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf585c6b832f3854790bba2344b4ba37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctionSpeed: 50
+  correctionSpeed: 90
   heightMulti: 1.5
   trackingDelay: 0.1
+  duration: 3
 --- !u!1 &1088737300878271398
 GameObject:
   m_ObjectHideFlags: 0
