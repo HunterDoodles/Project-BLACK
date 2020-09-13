@@ -25,11 +25,11 @@ public class Homing : MonoBehaviour
     void Update()
     {
         //transform.LookAt(dummythicc.target.transform.position);
-        if (_missileBase.aliveTime > trackingDelay&& _missileBase.aliveTime < (duration < 0 ? Mathf.Infinity : duration + trackingDelay))            
+        if (_missileBase.aliveTime > trackingDelay&& _missileBase.aliveTime < (duration < 0 ? Mathf.Infinity : duration + trackingDelay)&&_missileBase.target!=null)            
         {
 
             Vector3 direction = (_missileBase.target.transform.position - transform.position).normalized;
-            float height = transform.position.y - _missileBase.transform.position.y;
+            float height = transform.position.y - _missileBase.target.transform.position.y;
             transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(direction),correctionSpeed * (height > 0 ? 1 : heightMulti) * Time.deltaTime);
         }
     }

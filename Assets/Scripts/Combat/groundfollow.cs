@@ -23,19 +23,24 @@ namespace BLACK.Combat
         [SerializeField]
         private float duration = -1;
 
-        private BLACK.Combat.Dumbfire missileBase;
+        private BLACK.Combat.Dumbfire _missileBase;
         private bool following = true;
         void Start()
         {
-            missileBase = GetComponent<Dumbfire>();
-            BLACK.Core.CarController car = missileBase.GetParent().GetComponent<BLACK.Core.CarController>();
+            _missileBase = GetComponent<Dumbfire>();
+            BLACK.Core.CarController car = _missileBase.GetParent().GetComponent<BLACK.Core.CarController>();
             following = car.isGrounded();
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (missileBase.aliveTime > delay && missileBase.aliveTime < (duration < 0 ? Mathf.Infinity: duration+delay)){
+            float heightFromTarget = 0;
+            if (_missileBase.target != null)
+            {
+                heightFromTarget = transform.position.y - _missileBase.target.transform.position.y;
+            }
+            if (_missileBase.aliveTime > delay && _missileBase.aliveTime < (duration < 0 ? Mathf.Infinity: duration+delay)){
 
                 RaycastHit ray, ray2;
                 Debug.DrawRay(transform.position,Vector3.down);
@@ -43,17 +48,17 @@ namespace BLACK.Combat
                 if (Physics.Raycast(transform.position,Vector3.down,out ray,heightThresh) && Physics.Raycast(transform.position + transform.forward,Vector3.down,out ray2,heightThresh) && following)
                 {
                     //Correct the rotation of the missile to level out with the ground
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(ray2.point - ray.point,Vector3.up),anglecorrect);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(ray2.point - ray.point,Vector3.up),anglecorrect * Time.deltaTime);
 
-                    if (ray.distance > height) //if missile is too high
+                    if (ray.distance > height&& heightFromTarget <= 0) //if missile is too high
                     {
-                        float tempCorrect = Mathf.Clamp(correct,0,ray.distance - height); //Clamp Correction Value to the max needed to correct
+                        float tempCorrect = Mathf.Clamp(correct * Time.deltaTime,0,ray.distance - height); //Clamp Correction Value to the max needed to correct
                         transform.position -= new Vector3(0,tempCorrect,0); //apply adjustment
                     }
                     else if (ray.distance < height) //if missile is too low
                     {
-                        float tempCorrect = Mathf.Clamp(correct,0,height - ray.distance);
-                        transform.position += new Vector3(0,tempCorrect,0);
+                        float tempCorrect = Mathf.Clamp(correct * Time.deltaTime,0,height - ray.distance);
+                        transform.position += new Vector3(0,tempCorrect ,0);
                     }
                 }
                 else
