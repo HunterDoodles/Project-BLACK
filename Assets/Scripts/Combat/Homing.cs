@@ -11,23 +11,29 @@ public class Homing : MonoBehaviour
     private float heightMulti = 1.5f;
     [SerializeField]
     private float trackingDelay = 2.5f;
-    
-    private BLACK.Combat.Dumbfire _dummythicc;
+    [SerializeField]
+    private float duration =-1f;
+
+    private BLACK.Combat.Dumbfire _missileBase;
 
     void Start()
     {
-        _dummythicc = GetComponent<BLACK.Combat.Dumbfire>();
+        _missileBase = GetComponent<BLACK.Combat.Dumbfire>();
+        if (_missileBase.target!=null)
+        {
+            _missileBase.Targeting = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //transform.LookAt(dummythicc.target.transform.position);
-        if (_dummythicc.aliveTime > trackingDelay)            
+        if (_missileBase.aliveTime > trackingDelay&& _missileBase.aliveTime < (duration < 0 ? Mathf.Infinity : duration + trackingDelay)&&_missileBase.target!=null)            
         {
 
-            Vector3 direction = (_dummythicc.target.transform.position - transform.position).normalized;
-            float height = transform.position.y - _dummythicc.transform.position.y;
+            Vector3 direction = (_missileBase.target.transform.position - transform.position).normalized;
+            float height = transform.position.y - _missileBase.target.transform.position.y;
             transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(direction),correctionSpeed * (height > 0 ? 1 : heightMulti) * Time.deltaTime);
         }
     }

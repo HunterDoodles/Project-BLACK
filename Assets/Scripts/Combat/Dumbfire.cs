@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BLACK.Combat
@@ -12,10 +13,12 @@ namespace BLACK.Combat
         private float impact = 10000f; //force imparted on collision
         private GameObject _parent;
         public Target target;
-
+        public bool Targeting = false;
+        private ParticleSystem emit;
         public float aliveTime = 0;
         void Start()
         {
+            emit = GetComponentInChildren<ParticleSystem>();
             // GetComponent<Rigidbody>().detectCollisions = false;
         }
 
@@ -40,11 +43,23 @@ namespace BLACK.Combat
             if (other.gameObject != _parent && other.gameObject.tag != "Projectiles")
             {
                 Rigidbody CollidedRB = other.gameObject.GetComponent<Rigidbody>();
-                if (CollidedRB != null) //Ensure we are actually dealing with something rigid
+                if (CollidedRB != null)
+                { //Ensure we are actually dealing with something rigid
                     other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(transform.forward * impact,other.ClosestPointOnBounds(transform.position)); //if so apply force at point of contact (more or less)
+                }
+                if (emit != null)
+                {
+                    DetachParticle();
+                }
                 Destroy(gameObject); //Dead... not big surprise.
             }
         }
 
+        private void DetachParticle()
+        {
+            emit.transform.parent = null;
+            emit.Stop();
+            Destroy(emit.gameObject,5);
+        }
     }
 }
