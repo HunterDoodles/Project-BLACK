@@ -9,7 +9,7 @@ namespace BLACK.Combat
         
         protected override void Init()
         {
-
+            holdDown = true;
         }
 
         protected override void Update2()

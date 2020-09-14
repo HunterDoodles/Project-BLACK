@@ -22,6 +22,8 @@ namespace BLACK.Combat
         }
         protected override void Update2()
         {
+            if (volleying)
+                return;
             if (Input.GetKeyDown("e"))
             {
                 indexer++;

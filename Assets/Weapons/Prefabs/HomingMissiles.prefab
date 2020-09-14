@@ -67,6 +67,7 @@ MonoBehaviour:
   speed: 125
   impact: 250000
   target: {fileID: 0}
+  Targeting: 0
   aliveTime: 0
 --- !u!114 &4954084292409991993
 MonoBehaviour:
@@ -313,7 +314,7 @@ GameObject:
   - component: {fileID: 8684931248388103720}
   m_Layer: 2
   m_Name: HomingMissle
-  m_TagString: Untagged
+  m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

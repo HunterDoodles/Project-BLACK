@@ -18,6 +18,9 @@ namespace BLACK.Combat
         public float soundPitch;
         public float soundVolume;
         public int ammo;
+        public bool volleying;
+        public int volleyCount;
+        public float volleyDelay;
     }
     [RequireComponent(typeof(BLACK.Core.CarController))]
     public abstract class ProjectileFire : MonoBehaviour
@@ -48,6 +51,10 @@ namespace BLACK.Combat
         private AcquireTargets AcTarg;
         private float _timesincefired;
         private BLACK.Core.CarController _control;
+        public bool volleying = false;
+        public bool holdDown = false;
+        private int volleyCount = 0;
+       // private float volleyDelay = 50f;
         void Start()
         {
             AcTarg = GetComponent<AcquireTargets>();
@@ -63,20 +70,41 @@ namespace BLACK.Combat
         {
             Update2();
             _timesincefired += Time.deltaTime * 1000;
-            if (Input.GetKey(FireKey) && _timesincefired >= Bullet.firedelay&&isLoaded())
+            
+            if (((holdDown?Input.GetKey(FireKey): Input.GetKeyDown(FireKey)) ||volleying) && _timesincefired >= (volleying?Bullet.volleyDelay:Bullet.firedelay)&&isLoaded())
             {
-                audioSource.pitch = Bullet.soundPitch;
-                audioSource.PlayOneShot(Bullet.Fire,Bullet.soundVolume);
-                _timesincefired = 0;
-                UnityEngine.Random.InitState((int) (Time.frameCount * 100));
-                //if grounded get the angle of the ground to determine the missile angle, if not just take it from the car
-                Quaternion Rot = _control.isGrounded() ? Quaternion.LookRotation(_control.getGroundForward(),Vector3.up) * Quaternion.Euler(UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)) : Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.y + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.z + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)));
-                Dumbfire child = Instantiate(Bullet.projectile,Bullet.gunorigin.position,Rot*Bullet.gunorigin.localRotation).GetComponent<Dumbfire>();
-                child.target = AcTarg.GetCurrentTarget();
-                child.SetParent(gameObject);
-                DecAmmo();
+                _FireMissile();
             }
 
+        }
+        private void _FireMissile()
+        {
+            if (volleyCount > 0&& volleying)
+            {
+                volleyCount--;
+                if (volleyCount == 0)
+                {
+                    volleying = false;
+                }
+            }
+            else if (volleyCount == 0)
+            {
+                volleyCount = Bullet.volleyCount;
+                volleying = Bullet.volleying;
+                DecAmmo();
+            }
+           
+            audioSource.pitch = Bullet.soundPitch;
+            audioSource.PlayOneShot(Bullet.Fire,Bullet.soundVolume);
+            _timesincefired = 0;
+            UnityEngine.Random.InitState((int) (Time.frameCount * 100));
+            //if grounded get the angle of the ground to determine the missile angle, if not just take it from the car
+            Quaternion Rot = _control.isGrounded() ? Quaternion.LookRotation(_control.getGroundForward(),Vector3.up) * Quaternion.Euler(UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)) : Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.y + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.z + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)));
+            Dumbfire child = Instantiate(Bullet.projectile,Bullet.gunorigin.position,Rot * Bullet.gunorigin.localRotation).GetComponent<Dumbfire>();
+            child.target = AcTarg.GetCurrentTarget();
+            child.SetParent(gameObject);
+            
+            
         }
         protected abstract void Update2();
         protected abstract bool isLoaded();
