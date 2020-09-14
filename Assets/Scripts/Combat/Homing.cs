@@ -19,6 +19,10 @@ public class Homing : MonoBehaviour
     void Start()
     {
         _missileBase = GetComponent<BLACK.Combat.Dumbfire>();
+        if (_missileBase.target!=null)
+        {
+            _missileBase.Targeting = true;
+        }
     }
 
     // Update is called once per frame

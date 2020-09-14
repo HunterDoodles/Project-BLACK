@@ -145,6 +145,7 @@ MonoBehaviour:
   speed: 150
   impact: 60000
   target: {fileID: 0}
+  Targeting: 0
   aliveTime: 0
 --- !u!54 &9127128104508465328
 Rigidbody:
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118507814414009514}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf585c6b832f3854790bba2344b4ba37, type: 3}
   m_Name: 

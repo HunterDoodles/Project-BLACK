@@ -676,6 +676,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5927470997316947560, guid: a63bff4a8d7c82844a0ea637c863f23b, type: 3}
   m_PrefabInstance: {fileID: 1231989155}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &903448718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903448717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e6693cde69878449f6ab1a50ee85dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunorigin: {fileID: 0}
+  projectile: {fileID: 0}
+  spray: 0
+  _firedelay: 500
+  FireKey: space
+  Fire: {fileID: 0}
+  soundPitch: 1
+  soundVolume: 1
 --- !u!81 &903448724
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1370,7 +1390,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5927470997316947567, guid: a63bff4a8d7c82844a0ea637c863f23b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a63bff4a8d7c82844a0ea637c863f23b, type: 3}
 --- !u!4 &1368912413 stripped
 Transform:

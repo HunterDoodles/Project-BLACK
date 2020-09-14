@@ -13,6 +13,7 @@ namespace BLACK.Combat
         private float impact = 10000f; //force imparted on collision
         private GameObject _parent;
         public Target target;
+        public bool Targeting = false;
         private ParticleSystem emit;
         public float aliveTime = 0;
         void Start()

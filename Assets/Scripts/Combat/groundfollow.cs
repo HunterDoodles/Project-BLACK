@@ -36,7 +36,7 @@ namespace BLACK.Combat
         void FixedUpdate()
         {
             float heightFromTarget = 0;
-            if (_missileBase.target != null)
+            if (_missileBase.target != null && _missileBase.Targeting)
             {
                 heightFromTarget = transform.position.y - _missileBase.target.transform.position.y;
             }
@@ -48,6 +48,7 @@ namespace BLACK.Combat
                 if (Physics.Raycast(transform.position,Vector3.down,out ray,heightThresh) && Physics.Raycast(transform.position + transform.forward,Vector3.down,out ray2,heightThresh) && following)
                 {
                     //Correct the rotation of the missile to level out with the ground
+                    if(_missileBase.target!=null || !_missileBase.Targeting)
                     transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(ray2.point - ray.point,Vector3.up),anglecorrect * Time.deltaTime);
 
                     if (ray.distance > height&& heightFromTarget <= 0) //if missile is too high
