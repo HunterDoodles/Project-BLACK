@@ -7,7 +7,8 @@ using Cinemachine;
 public class CSelectManager : MonoBehaviour
 {
 
-    public GameObject[] contestantCams;
+    public List<Transform> contestantCams;
+    public Transform parent;
     GameObject currentContestant;
     int contestantIndex;
     public Button nextCharacter;
@@ -16,7 +17,11 @@ public class CSelectManager : MonoBehaviour
     public CinemachineVirtualCamera currentCamera;
 
     void Start() 
-    {     
+    {
+        foreach (Transform child in parent)
+        {
+            contestantCams.Add(child);
+        }
         Button next = nextCharacter.GetComponent<Button>();
         next.onClick.AddListener(TaskOnClickNext);
 
@@ -24,27 +29,32 @@ public class CSelectManager : MonoBehaviour
         prev.onClick.AddListener(TaskOnClickPrev);
         
         contestantIndex = 0;
-        currentContestant = contestantCams[0];
+        currentContestant = contestantCams[0].gameObject;
     }
 
     void TaskOnClickNext()
     {
         Debug.Log("Next character.");
+        currentCamera.Priority--;
         contestantIndex++;
-        if (contestantIndex > (contestantCams.Length - 1))
+        if (contestantIndex > (contestantCams.Count))
         {
             contestantIndex = 0;
         }
+        currentCamera = contestantCams[contestantIndex].GetComponent<CinemachineVirtualCamera>();
+
     }
 
     void TaskOnClickPrev()
     {
         Debug.Log("Previous character.");
+   
         contestantIndex--;
-        if(contestantIndex < 0)
+        if (contestantIndex < 0)
         {
-            contestantIndex = contestantCams.Length - 1;
+            contestantIndex = contestantCams.Count;
         }
+        
     }
 
     void Update()
