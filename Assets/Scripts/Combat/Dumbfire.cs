@@ -15,6 +15,7 @@ namespace BLACK.Combat
         public Target target;
         public bool Targeting = false;
         private ParticleSystem emit;
+        public GameObject explosion;
         public float aliveTime = 0;
         void Start()
         {
@@ -50,6 +51,11 @@ namespace BLACK.Combat
                 if (emit != null)
                 {
                     DetachParticle();
+                }
+                if (explosion != null)
+                {
+                    GameObject exp = Instantiate(explosion,transform.position,Quaternion.identity);
+                    Destroy(exp,5);
                 }
                 Destroy(gameObject); //Dead... not big surprise.
             }

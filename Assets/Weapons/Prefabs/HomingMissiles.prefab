@@ -68,6 +68,7 @@ MonoBehaviour:
   impact: 250000
   target: {fileID: 0}
   Targeting: 0
+  explosion: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
   aliveTime: 0
 --- !u!114 &4954084292409991993
 MonoBehaviour:
