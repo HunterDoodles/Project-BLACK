@@ -1,0 +1,35 @@
+To create a scene drag and drop any model or prefab to your scene.
+Use road junction and road junction T for road intersection.Straight road has 4 variations named as road straight,road straight end,road straight double and road straight double end.
+Road junction corresponds to sidewalk corner and road straight(all) corresponds to side walk double,sidewalk single and sidewalk end(end of road).Sidewalk has some variation such as 
+single,double,single with tree bed,double with under pass(has corresponding under pass model) etc.Side walk also has 3 parking variation to create a long parking area as your wish.
+Floors are tileable and have 4 variation.Each of them has exta small,small and large part.
+
+Divider grass model is for a grassy look in between two sided road which will cover the concrete divider(shown in demo scene).
+
+Brick and concrete walls have two part for each model.One is piller and another is main wall.
+
+Hedges are not modular.The have to be used separately.
+
+61 main building in different size and 11 back building for far view.Buildings are not modular and no inetrior is available.
+
+Rooftop props are separate models.Vent pipe5a and vent pipe5b can be used as modular part for each other.
+
+Place signboards models in different area such as building front,building top,street etc.
+
+Street light has 3 variation ,one sided lamp,two sided lamp and one for parking are(classic looking).Street sign and traffic sign has to place on different street light and trafic signals.
+Walking traffic signals 3,4,5 can be usedstreet light and traffic signals 1,2.
+
+Street props 1 folder contains bin,fire hydrant,mailbox,metal barrier,newsbox,park bench,parking meter,street stump,sewer lid which can be placed on anywhere of street.But sewer lidc1 and
+ 2 corresponds to "sidewalk single tree bed" model.Tree bed 1,2,5 corresponds to "sidewalk tree bed2"model which is in roads and floor folder.
+Street props2 folder cotents can be placed anywhere on the street.
+
+Street props3 folder contents also can be placed anywhere on the street except concrete wall.Each conrete wall has two parts, one is piller and another is main wall.
+
+Trees can be placed any where such as on sidewalk,on tree bed or any parking side area.
+
+High floor 1 and 2 has modular parts.High floor 4 and 5 can be place anywhere  but park floor1 and 2 is mainly for park area and is big in size.Sewer lid 5 and tree bed 3,4 can be placed 
+anywhere on street.
+
+After all you have strat  with roads,sidewalk and therefor the floors to create a new scene.Then you can decorate or modify your scene as you want.
+FOR ANY SUPPORT FEEL FREE TO CONTACT:meshlabstudio@gmail.com
+
