@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class RadarObject
 {
@@ -9,10 +10,11 @@ public class RadarObject
     public GameObject owner {get; set; }
 }
 
-public class Radar : MonoBehaviour
+public class Radar : NetworkBehaviour
 {
     public Transform playerPos;
-    float mapScale = 2.0f;
+    GameObject Player;
+    float mapScale = 1f;
 
     public static List<RadarObject> radObjects = new List<RadarObject>();
 
@@ -46,6 +48,10 @@ public class Radar : MonoBehaviour
         {
             Vector3 radarPos = (ro.owner.transform.position - playerPos.position);
             float distToObject = Vector3.Distance(playerPos.position, ro.owner.transform.position) * mapScale;
+            if(distToObject > 70f)
+            {
+                distToObject = 70f;
+            }
             float deltay = Mathf.Atan2(radarPos.x, radarPos.z) * Mathf.Rad2Deg - 270 -playerPos.eulerAngles.y;
             radarPos.x = distToObject * Mathf.Cos(deltay * Mathf.Deg2Rad) * -1;
             radarPos.z = distToObject * Mathf.Sin(deltay * Mathf.Deg2Rad);
@@ -55,8 +61,17 @@ public class Radar : MonoBehaviour
         }
     }
 
+    private void Start() {
+        
+    }
+
     void Update()
     {
         DrawRadarDots();
+        Player = GameObject.FindWithTag("Player");
+        if (isLocalPlayer)
+        {
+            playerPos = Player.transform;
+        }
     }
 }
