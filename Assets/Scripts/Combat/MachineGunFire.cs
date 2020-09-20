@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BLACK.Combat
 {
-    public class MachinegunFire : ProjectileFire
+    public class MachineGunFire : ProjectileFire
     {
         
         protected override void Init()

@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 874924104693012617}
   - component: {fileID: 874924104693012616}
   m_Layer: 2
-  m_Name: Junkrat_Camera
+  m_Name: Player_Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874924104693012622}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &874924104693012616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,15 +772,16 @@ GameObject:
   - component: {fileID: 4089024565601676908}
   - component: {fileID: 4089024565601676909}
   - component: {fileID: 4089024565601676910}
-  - component: {fileID: 7709521935234646320}
   - component: {fileID: 7709521935234646321}
-  - component: {fileID: 7709521935234646314}
-  - component: {fileID: 7709521935234646315}
   - component: {fileID: 7709521935234646322}
   - component: {fileID: 7709521935234646323}
   - component: {fileID: 7709521935234646332}
+  - component: {fileID: 8876763320097757237}
+  - component: {fileID: 5283532038809985192}
+  - component: {fileID: 1510257435959113628}
+  - component: {fileID: 1178118885843285011}
   m_Layer: 2
-  m_Name: Junkrat reforged 1
+  m_Name: Player_Junkrat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -793,7 +794,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4089024565601676911}
-  m_LocalRotation: {x: -0, y: -0.61902195, z: -0, w: 0.78537375}
+  m_LocalRotation: {x: 0, y: -0.6190187, z: 0, w: 0.7853763}
   m_LocalPosition: {x: 150.5, y: 62.172752, z: 383.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -877,14 +878,6 @@ MonoBehaviour:
   centerOfMass: {fileID: 4089024565867599176}
   Front: {fileID: 8832211607873829704}
   Back: {fileID: 8832211608204906736}
---- !u!81 &7709521935234646320
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089024565601676911}
-  m_Enabled: 1
 --- !u!82 &7709521935234646321
 AudioSource:
   m_ObjectHideFlags: 0
@@ -981,100 +974,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7709521935234646314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089024565601676911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e6693cde69878449f6ab1a50ee85dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet:
-    name: 
-    gunorigin: {fileID: 0}
-    projectile: {fileID: 0}
-    spray: 0
-    firedelay: 0
-    Fire: {fileID: 0}
-    soundPitch: 0
-    soundVolume: 0
-    ammo: 0
-    volleying: 0
-    volleyCount: 0
-    volleyDelay: 0
-  FireKey: left ctrl
-  volleying: 0
-  holdDown: 0
-  CurrentWeapon: {fileID: 0}
-  Loadout:
-  - name: Power Missile
-    gunorigin: {fileID: 874924104178875723}
-    projectile: {fileID: 4752093617961809409, guid: 78d43bac81a6888449795b65a6606728, type: 3}
-    spray: 0
-    firedelay: 700
-    Fire: {fileID: 8300000, guid: a34d4e413f85599409a8bfdffed12d84, type: 3}
-    soundPitch: 0.05
-    soundVolume: 0.3
-    ammo: 10
-    volleying: 0
-    volleyCount: 0
-    volleyDelay: 0
-  - name: Homing Missile
-    gunorigin: {fileID: 874924104178875723}
-    projectile: {fileID: 357501405254115321, guid: a189908ef7caeae4aa55306948c2e548, type: 3}
-    spray: 0
-    firedelay: 500
-    Fire: {fileID: 8300000, guid: a34d4e413f85599409a8bfdffed12d84, type: 3}
-    soundPitch: 0.2
-    soundVolume: 0.2
-    ammo: 10
-    volleying: 0
-    volleyCount: 0
-    volleyDelay: 0
-  - name: Volley
-    gunorigin: {fileID: 7709521934019680484}
-    projectile: {fileID: 4475788942883576784, guid: 3998354679533fd4ba52bb92ac5c16a9, type: 3}
-    spray: 5
-    firedelay: 900
-    Fire: {fileID: 8300000, guid: a34d4e413f85599409a8bfdffed12d84, type: 3}
-    soundPitch: 2
-    soundVolume: 0.2
-    ammo: 10
-    volleying: 1
-    volleyCount: 7
-    volleyDelay: 90
---- !u!114 &7709521935234646315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089024565601676911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac7878954aed7c4488c49c627bd753b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet:
-    name: MG
-    gunorigin: {fileID: 7606716683754843346}
-    projectile: {fileID: 2118507814414009514, guid: 872b2f13cdc9b36428575094499ad8f9, type: 3}
-    spray: 0
-    firedelay: 100
-    Fire: {fileID: 8300000, guid: a34d4e413f85599409a8bfdffed12d84, type: 3}
-    soundPitch: 0.5
-    soundVolume: 0.1
-    ammo: 0
-    volleying: 0
-    volleyCount: 2
-    volleyDelay: 50
-  FireKey: space
-  volleying: 0
-  holdDown: 1
 --- !u!114 &7709521935234646322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,6 +1015,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64d7ecca6cf53f4f8360bb526cc6839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8876763320097757237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089024565601676911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7878954aed7c4488c49c627bd753b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet:
+    name: 
+    gunorigin: {fileID: 0}
+    projectile: {fileID: 0}
+    spray: 0
+    firedelay: 0
+    Fire: {fileID: 0}
+    soundPitch: 0
+    soundVolume: 0
+    ammo: 0
+    volleying: 0
+    volleyCount: 0
+    volleyDelay: 0
+  FireKey: left ctrl
+  volleying: 0
+  holdDown: 0
+--- !u!114 &5283532038809985192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089024565601676911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1510257435959113628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089024565601676911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ee61d4daf7108408f4fbeafcce6a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  componenetsToDisable:
+  - {fileID: 4089024565601676910}
+  - {fileID: 8876763320097757237}
+  - {fileID: 7709521935234646322}
+  - {fileID: 7709521935234646323}
+  - {fileID: 874924104693012618}
+  - {fileID: 874924104693012617}
+--- !u!114 &1178118885843285011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089024565601676911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &4089024565695461083
 GameObject:
   m_ObjectHideFlags: 0
