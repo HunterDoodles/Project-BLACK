@@ -12,9 +12,11 @@ public class RadarObject
 
 public class Radar : NetworkBehaviour
 {
-    public Transform playerPos;
+    [SerializeField]
     GameObject Player;
     float mapScale = 1f;
+
+    Transform playerPos;
 
     public static List<RadarObject> radObjects = new List<RadarObject>();
 
@@ -67,11 +69,11 @@ public class Radar : NetworkBehaviour
 
     void Update()
     {
-        DrawRadarDots();
-        Player = GameObject.FindWithTag("Player");
-        if (isLocalPlayer)
-        {
-            playerPos = Player.transform;
-        }
+        // foreach (Player player in FindObjectsOfType<Player>())
+        // {
+        //     if (Player.GetComponent<NetworkIdentity>().isLocalPlayer == true);
+
+        // }
+        // DrawRadarDots();
     }
 }

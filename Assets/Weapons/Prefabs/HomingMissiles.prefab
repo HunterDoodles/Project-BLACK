@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4954084292409991993}
   - component: {fileID: 335449153260525250}
   - component: {fileID: -2500244591468534071}
+  - component: {fileID: -1454563375834726443}
+  - component: {fileID: 4738954771569115417}
   m_Layer: 2
   m_Name: HomingMissiles
   m_TagString: Projectiles
@@ -209,6 +211,40 @@ MonoBehaviour:
   heightMulti: 1.5
   trackingDelay: 0.05
   duration: 3
+--- !u!114 &-1454563375834726443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357501405254115321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &4738954771569115417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357501405254115321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &2217303777148951187
 GameObject:
   m_ObjectHideFlags: 0

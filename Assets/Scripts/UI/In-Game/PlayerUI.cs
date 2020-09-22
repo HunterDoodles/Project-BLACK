@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerUI : MonoBehaviour
+public class PlayerUI : NetworkBehaviour
 {
 
     [SerializeField]

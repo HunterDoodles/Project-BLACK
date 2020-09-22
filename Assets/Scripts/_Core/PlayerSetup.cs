@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 
 public class PlayerSetup : NetworkBehaviour
@@ -29,7 +30,6 @@ public class PlayerSetup : NetworkBehaviour
             }
         }
     }
-
     void OnDisable ()
     {
         if (sceneCamera != null)
