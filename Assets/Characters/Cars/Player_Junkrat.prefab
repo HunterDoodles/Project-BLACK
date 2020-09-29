@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 874924104693012616}
   m_Layer: 2
   m_Name: Player_Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -804,6 +804,7 @@ GameObject:
   - component: {fileID: 4089024565601676909}
   - component: {fileID: 4089024565601676910}
   - component: {fileID: 7709521935234646321}
+  - component: {fileID: 257801833223924164}
   - component: {fileID: 7709521935234646322}
   - component: {fileID: 7709521935234646323}
   - component: {fileID: 7709521935234646332}
@@ -813,7 +814,7 @@ GameObject:
   - component: {fileID: 1178118885843285011}
   m_Layer: 2
   m_Name: Player_Junkrat
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1006,6 +1007,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &257801833223924164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089024565601676911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8287340e3e2a1bc40b1f449e833e8f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerNameText: {fileID: 4192732943973738920}
+  floatingName: {fileID: 283600935459284971}
+  playerName: Spark
+  playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7709521935234646322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,12 +1131,6 @@ MonoBehaviour:
   - {fileID: 7709521935234646323}
   - {fileID: 874924104693012618}
   - {fileID: 874924104693012617}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerNameText: {fileID: 4192732943973738920}
-  floatingName: {fileID: 283600935459284971}
-  playerName: 
-  playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1178118885843285011
 MonoBehaviour:
   m_ObjectHideFlags: 0

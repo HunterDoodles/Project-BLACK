@@ -29,8 +29,8 @@ namespace BLACK.Combat
             aliveTime += Time.deltaTime;
             transform.position += transform.forward * speed*Time.deltaTime;
         }
-        //https://www.youtube.com/watch?v=lLl0DVzRksk
-        public void SetParent(GameObject parentalfigure)
+        //https://www.youtube.com/watch?v=lLl0DVzRksk This is cursed please never again.
+        public void SetParent(GameObject parentalfigure) // Please Die Immediately
         {
             _parent = parentalfigure;
         }
@@ -45,7 +45,7 @@ namespace BLACK.Combat
             {
                 Rigidbody CollidedRB = other.gameObject.GetComponent<Rigidbody>();
                 if (CollidedRB != null)
-                { //Ensure we are actually dealing with something rigid
+                { //Ensure we are actually dealing with something 'rigid'
                     other.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(transform.forward * impact,other.ClosestPointOnBounds(transform.position)); //if so apply force at point of contact (more or less)
                 }
                 if (emit != null)
