@@ -43,20 +43,24 @@ public class Radar : NetworkBehaviour
 
     void DrawRadarDots()
     {
-        foreach (RadarObject ro in radObjects)
+        if (playerPos != null)
         {
-            Vector3 radarPos = (ro.owner.transform.position - playerPos.position);
-            float distToObject = Vector3.Distance(playerPos.position, ro.owner.transform.position) * mapScale;
-            if(distToObject > 70f)
-            {
-                distToObject = 70f;
-            }
-            float deltay = Mathf.Atan2(radarPos.x, radarPos.z) * Mathf.Rad2Deg - 270 -playerPos.eulerAngles.y;
-            radarPos.x = distToObject * Mathf.Cos(deltay * Mathf.Deg2Rad) * -1;
-            radarPos.z = distToObject * Mathf.Sin(deltay * Mathf.Deg2Rad);
 
-            ro.icon.transform.SetParent(this.transform);
-            ro.icon.transform.position = new Vector3(radarPos.x, radarPos.z, 0) + this.transform.position;
+            foreach (RadarObject ro in radObjects)
+            {
+                Vector3 radarPos = (ro.owner.transform.position - playerPos.position);
+                float distToObject = Vector3.Distance(playerPos.position,ro.owner.transform.position) * mapScale;
+                if (distToObject > 70f)
+                {
+                    distToObject = 70f;
+                }
+                float deltay = Mathf.Atan2(radarPos.x,radarPos.z) * Mathf.Rad2Deg - 270 - playerPos.eulerAngles.y;
+                radarPos.x = distToObject * Mathf.Cos(deltay * Mathf.Deg2Rad) * -1;
+                radarPos.z = distToObject * Mathf.Sin(deltay * Mathf.Deg2Rad);
+
+                ro.icon.transform.SetParent(this.transform);
+                ro.icon.transform.position = new Vector3(radarPos.x,radarPos.z,0) + this.transform.position;
+            }
         }
     }
 

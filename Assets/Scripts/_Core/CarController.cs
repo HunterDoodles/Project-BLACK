@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 namespace BLACK.Core
 {
     [Serializable]
@@ -11,7 +11,7 @@ namespace BLACK.Core
         public Transform springBR, springBL, springFL, springFR;//suspension spring locations
         public Transform wheelBR, wheelBL, wheelFL, wheelFR;//Wheel positions
     }
-    public class CarController : MonoBehaviour
+    public class CarController : NetworkBehaviour
     {
         /*If this shit doesnt end up working I will commit mine <3 -shawn
         */
@@ -98,20 +98,22 @@ namespace BLACK.Core
             RaycastHit ground,ground2;
             Debug.DrawRay(Front.position,-Front.transform.up);
             Debug.DrawRay(Back.position,-Back.transform.up);
-           
-            if (Physics.Raycast(Front.position,-Front.transform.up,out ground,groundDistance)&& Physics.Raycast(Back.position,-Back.transform.up,out ground2,groundDistance))
+
+            if (Physics.Raycast(Front.position,-Front.transform.up,out ground,groundDistance) && Physics.Raycast(Back.position,-Back.transform.up,out ground2,groundDistance))
             {
                 _grounded = true;
-              
+
                 //here we are basically looking at the line made by the ground at the front of the car and the back of it to get the angle of the ground.
-                if (Physics.Raycast(_rb.position -_rb.transform.forward*.02f,-_rb.transform.up,out ground2,groundDistance))
+                if (Physics.Raycast(_rb.position - _rb.transform.forward * .02f,-_rb.transform.up,out ground2,groundDistance))
                 {
                     _groundVector = ground.point - ground2.point;
                     _groundVector.Normalize();
                 }
 
                 //_VelocityDecay((1f-(sideDrag-(fastturn?sideDragReduction:0)))*Time.deltaTime,1f-stiffness * Time.deltaTime,1f-(inputY != 0 ? frontDrag * Time.deltaTime : frontStopDrag * Time.deltaTime));
-                _VelocityDecay(1f - (sideDrag-(fastturn?sideDragReduction:0) ) * Time.deltaTime,1f - stiffness * Time.deltaTime,1f - (inputY != 0 ? frontDrag * Time.deltaTime : frontStopDrag * Time.deltaTime));
+                _VelocityDecay(1f - (sideDrag - (fastturn ? sideDragReduction : 0)) * Time.deltaTime,1f - stiffness * Time.deltaTime,1f - (inputY != 0 ? frontDrag * Time.deltaTime : frontStopDrag * Time.deltaTime));
+                if (!base.hasAuthority)
+                    return;
                 _rb.AddForce(_groundVector * accelForce * inputY * (boosting ? 1.5f : 1));//Apply forward thrust to the car, increase that by 50% if you are boosting that value subject to change. force is applied parallel to the ground.
                 if (Input.GetKeyDown("f"))
                 {
@@ -128,6 +130,8 @@ namespace BLACK.Core
                 _grounded = false;
                 _FallClamp();
             }
+            if (!base.hasAuthority)
+                return;
             _rb.AddRelativeTorque(Vector3.up * turningTorque *(fastturn?1.5f:1) * inputX);//Spin the Car
         }
 

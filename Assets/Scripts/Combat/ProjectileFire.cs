@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-
+using Mirror;
 namespace BLACK.Combat
 {
    
@@ -100,9 +100,11 @@ namespace BLACK.Combat
             UnityEngine.Random.InitState((int) (Time.frameCount * 100));
             //if grounded get the angle of the ground to determine the missile angle, if not just take it from the car
             Quaternion Rot = _control.isGrounded() ? Quaternion.LookRotation(_control.getGroundForward(),Vector3.up) * Quaternion.Euler(UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)) : Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.y + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray),transform.rotation.eulerAngles.z + UnityEngine.Random.Range(-Bullet.spray,Bullet.spray)));
-            Dumbfire child = Instantiate(Bullet.projectile,Bullet.gunorigin.position,Rot * Bullet.gunorigin.localRotation).GetComponent<Dumbfire>();
-            child.target = AcTarg.GetCurrentTarget();
-            child.SetParent(gameObject);
+            GameObject child = Instantiate(Bullet.projectile,Bullet.gunorigin.position,Rot * Bullet.gunorigin.localRotation);
+            NetworkServer.Spawn(child);
+            Dumbfire dchild = child.GetComponent<Dumbfire>();
+            dchild.target = AcTarg.GetCurrentTarget();
+            dchild.SetParent(gameObject);
             
             
         }

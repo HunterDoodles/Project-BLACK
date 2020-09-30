@@ -19,6 +19,7 @@ public class PlayerSetup : NetworkBehaviour
             {
                 componenetsToDisable[i].enabled = false;
             }
+
         } 
         else
         {
@@ -28,6 +29,7 @@ public class PlayerSetup : NetworkBehaviour
             {
                 sceneCamera.gameObject.SetActive(false);
             }
+            GameObject.Find("Player UI/Radar").GetComponent<Radar>().playerPos = this.transform;
         }
     }
     void OnDisable ()
