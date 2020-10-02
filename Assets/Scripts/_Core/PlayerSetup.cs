@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using BLACK.NetworkedUI;
 
 public class PlayerSetup : NetworkBehaviour
 {
@@ -9,6 +10,11 @@ public class PlayerSetup : NetworkBehaviour
     Behaviour[] componenetsToDisable;
 
     Camera sceneCamera;
+
+    public int maxHealth = 100;
+    public int currentHealth;
+
+    public HealthBar healthBar;
 
     void Start()
     {
@@ -31,6 +37,17 @@ public class PlayerSetup : NetworkBehaviour
             }
             GameObject.Find("Player UI/Radar").GetComponent<Radar>().playerPos = this.transform;
         }
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+    void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            TakeDamage(17);
+            Debug.Log("Taking Damage!");
+        }
     }
     void OnDisable ()
     {
@@ -38,6 +55,12 @@ public class PlayerSetup : NetworkBehaviour
         {
             sceneCamera.gameObject.SetActive(true);
         }
+    }
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 
 }
